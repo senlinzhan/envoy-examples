@@ -11,9 +11,9 @@ def hello_world():
 
 @app.route('/healthy_check')
 def healthy_check():
-    service = socket.gethostname()
-    ip = socket.gethostbyname(service)
-    return 'I am fine! <service_name: {}, ip: {}>'.format(service, ip)
+    pod = socket.gethostname()
+    ip = socket.gethostbyname(pod)
+    return 'I am fine! <pod: {}, ip: {}>'.format(pod, ip)
 
 
 if __name__ == '__main__':

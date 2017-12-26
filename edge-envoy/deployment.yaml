@@ -1,0 +1,36 @@
+kind: Deployment
+apiVersion: extensions/v1beta1
+metadata:
+  name: edge-envoy-deployment
+spec:
+  selector:
+    matchLabels:
+      app: edge-envoy
+  template:
+    metadata:
+      labels:
+        app: edge-envoy
+    spec:
+      hostIPC: true
+      hostNetwork: true
+      dnsPolicy: ClusterFirstWithHostNet
+      containers:
+        - name: envoy
+          image: lyft/envoy:latest
+          imagePullPolicy: IfNotPresent
+          command: ["/usr/local/bin/envoy"]
+          args:
+            - "--concurrency 4"
+            - "--config-path /etc/envoy/envoy.json"
+            - "--service-cluster samplecluster"
+            - "--service-node samplenode"
+          ports:
+            - containerPort: 80
+              protocol: TCP
+          volumeMounts:
+            - name: edge-envoy-config-v4
+              mountPath: /etc/envoy
+      volumes:
+        - name: edge-envoy-config-v4
+          configMap:
+            name: edge-envoy-config-v4
