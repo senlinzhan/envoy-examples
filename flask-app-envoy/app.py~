@@ -1,0 +1,24 @@
+import socket
+from flask import Flask
+
+app = Flask(__name__)
+
+
+@app.route('/')
+def hello_world():
+    return 'Hello, World!'
+
+
+@app.route('/healthy_check')
+def healthy_check():
+    host_name = socket.gethostname()
+    resolved_name = socket.gethostbyname(host_name)
+    return 'I am fine! <host_name: {}, resolved_name: {}>'.format(host_name, resolved_name)
+
+
+@app.route('/about')
+def about():
+    return 'Youmi Devops'
+
+if __name__ == '__main__':
+    app.run(debug=True, host='0.0.0.0', port=5000)
