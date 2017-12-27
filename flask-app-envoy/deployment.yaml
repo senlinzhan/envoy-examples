@@ -13,20 +13,20 @@ spec:
         app: flask-app-envoy 
     spec:
       containers:
-        - name: my-app
-          image: senlinzhan/my-app:v0.1
-        - name: envoy
-          image: lyft/envoy:latest
-	  command: ["/usr/local/bin/envoy"]
-          args:
-            - "--config-path /etc/envoy/envoy.json"
-          ports:
-            - containerPort: 80
-	      protocol: TCP
-	  volumeMounts:
-	    - name: envoy-config
-	      mountPath: /etc/envoy
-      volumes:
+      - name: my-app
+        image: senlinzhan/my-app:v0.1
+      - name: envoy
+        image: lyft/envoy:latest
+        command: ["/usr/local/bin/envoy"]
+        args:
+        - "--config-path /etc/envoy/envoy.json"
+        ports:
+        - containerPort: 80
+          protocol: TCP
+        volumeMounts:
         - name: envoy-config
-	  configMap:
-	    name: envoy-config
+          mountPath: /etc/envoy
+      volumes:
+      - name: envoy-config
+        configMap:
+          name: envoy-config
