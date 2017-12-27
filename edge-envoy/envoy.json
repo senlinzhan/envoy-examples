@@ -18,7 +18,7 @@
               "virtual_hosts": [
                 {
                   "name": "backend",
-                  "domains": ["*"],
+                  "domains": ["foo.com"],
                   "routes": [
                     {
                       "timeout_ms": 0,

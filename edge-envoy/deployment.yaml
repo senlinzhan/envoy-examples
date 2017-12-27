@@ -22,15 +22,15 @@ spec:
           args:
             - "--concurrency 4"
             - "--config-path /etc/envoy/envoy.json"
-            - "--service-cluster samplecluster"
-            - "--service-node samplenode"
+            - "--service-cluster edge-envoy"
+            - "--service-node edge-envoy-node"
           ports:
             - containerPort: 80
               protocol: TCP
           volumeMounts:
-            - name: edge-envoy-config-v4
+            - name: edge-envoy-config
               mountPath: /etc/envoy
       volumes:
-        - name: edge-envoy-config-v4
+        - name: edge-envoy-config
           configMap:
-            name: edge-envoy-config-v4
+            name: edge-envoy-config
